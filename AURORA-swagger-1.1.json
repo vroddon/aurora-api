@@ -1,0 +1,2255 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/authentication/register": {
+      "put": {
+        "operationId": "AuthenticationController_register",
+        "summary": "Register",
+        "description": "Register a new user",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Registration succeeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tokens"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Authentication"]
+      }
+    },
+    "/authentication/login": {
+      "post": {
+        "operationId": "AuthenticationController_login",
+        "summary": "Login",
+        "description": "Login an existing user",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login succeeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tokens"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Authentication"]
+      }
+    },
+    "/authentication/logout": {
+      "delete": {
+        "operationId": "AuthenticationController_logout",
+        "summary": "Logout",
+        "description": "Logout a user",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Logout succeeded"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Authentication"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/authentication/refresh": {
+      "post": {
+        "operationId": "AuthenticationController_refresh",
+        "summary": "Refresh",
+        "description": "Refresh an access token",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Refresh succeeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefreshResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Authentication"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/authentication/email": {
+      "post": {
+        "operationId": "AuthenticationController_changeEmail",
+        "summary": "Change E-Mail",
+        "description": "Send a confirmation code to a new E-Mail address in order to change the E-Mail address",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeEmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Confirmation code sent to new E-Mail address"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Authentication"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "AuthenticationController_confirmChangeEmail",
+        "summary": "Confirm change E-Mail",
+        "description": "Confirm change of new E-Mail address alongside with a confirmation code",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmChangeEmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "E-Mail successfully changed"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Authentication"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/authentication/password": {
+      "patch": {
+        "operationId": "AuthenticationController_changePassword",
+        "summary": "Change Password",
+        "description": "Change Password",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password successfully changed"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Authentication"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/authentication/password-reset": {
+      "post": {
+        "operationId": "AuthenticationController_passwordReset",
+        "summary": "Password reset",
+        "description": "Send a confirmation code to the E-Mail address in order to reset the Password",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Confirmation code sent to E-Mail address"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Authentication"]
+      },
+      "patch": {
+        "operationId": "AuthenticationController_confirmPasswordReset",
+        "summary": "Confirm Password reset",
+        "description": "Set a new password alongside with a confirmation code",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmPasswordResetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password successfully reset"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Authentication"]
+      }
+    },
+    "/consumptions/summary": {
+      "get": {
+        "operationId": "ConsumptionsController_summary",
+        "summary": "Consumption Summary",
+        "description": "Retrieve Consumption Summary",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Consumption Summary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConsumptionSummary"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Consumptions"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/consumptions": {
+      "get": {
+        "operationId": "ConsumptionsController_getAll",
+        "summary": "Consumptions",
+        "description": "Retrieve all consumptions",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A List of Consumptions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Consumption"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Consumptions"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "ConsumptionsController_create",
+        "summary": "Create Consumption",
+        "description": "Creates a new consumption",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateConsumptionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Consumption created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Consumption"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Consumptions"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/consumptions/{id}": {
+      "patch": {
+        "operationId": "ConsumptionsController_update",
+        "summary": "Update Consumption",
+        "description": "Update a consumption",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateConsumptionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Consumption updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Consumption"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Consumption not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Consumptions"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "ConsumptionsController_delete",
+        "summary": "Delete Consumption",
+        "description": "Delete a consumption",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Consumption deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Consumption"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Consumption not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Consumptions"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/notifications/device-token": {
+      "put": {
+        "operationId": "NotificationsController_uploadDeviceToken",
+        "summary": "Push Device Token",
+        "description": "Upload/Set Push Device Token in order to receive remote Notifications",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadNotificationsDeviceTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Push Device Token saved"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Notifications"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/notifications": {
+      "get": {
+        "operationId": "NotificationsController_notifications",
+        "summary": "Notifications",
+        "description": "Retrieve all Notifications",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A List of Notifications",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Notification"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Notifications"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/notifications/{id}": {
+      "patch": {
+        "operationId": "NotificationsController_updateNotification",
+        "summary": "Update Notification",
+        "description": "Update a Notification",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateNotificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Notification updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Notification not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Notifications"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/sites": {
+      "get": {
+        "operationId": "SitesController_sites",
+        "summary": "Sites",
+        "description": "Retrieve all available sites",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of available sites",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Site"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sites"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/user": {
+      "get": {
+        "operationId": "UserController_user",
+        "summary": "User",
+        "description": "Retrieve the user profile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["User"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "UserController_updateUser",
+        "summary": "Update User",
+        "description": "Update the profile of a user",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["User"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "UserController_deleteUser",
+        "summary": "Delete User",
+        "description": "Delete user",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Deletion succeeded"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["User"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/user/export-data": {
+      "post": {
+        "operationId": "UserController_exportData",
+        "summary": "Export User data",
+        "description": "Exports the user data by sending an E-Mail containing a ZIP archive of the user data",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Export succeeded"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["User"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+	"/vehicle-types": {
+      "get": {
+        "operationId": "TransportController_getVehicleTypes",
+        "summary": "Retrieve vehicle types",
+        "description": "Retrieve the list of available vehicle types",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The list of available vehicle types",
+            "content": {
+			  "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IdName"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Transport"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+	"/level-of-occupancy": {
+      "get": {
+        "operationId": "TransportController_getLevelOfOccupancy",
+        "summary": "Retrieve level of occupancy",
+        "description": "Retrieve the list of level of available occupancy values",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The list of available occupancy values",
+            "content": {
+			  "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IdName"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Transport"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+	"/countries": {
+      "get": {
+        "operationId": "TransportController_getCountries",
+        "summary": "Retrieve the list of countries",
+        "description": "Retrieve the list of available countries",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The list of countries",
+            "content": {
+			  "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Country"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Transport"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+	"/transport": {
+      "get": {
+        "operationId": "TransportController_getTransportData",
+        "summary": "Retrieve list of transport data",
+        "description": "Retrieves the list of transport data for the user",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The list of transport data",
+            "content": {
+			  "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransportData"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Transport"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+	  "put": {
+        "operationId": "TransportController_createTransportData",
+        "summary": "Create transport data",
+        "description": "Creates a new transport data record",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTransportDataRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transport data record created",
+            "content": {
+			  "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransportData"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Transport"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+	},
+	"/transport/{id}": {
+	  "patch": {
+        "operationId": "TransportController_updateTransportData",
+        "summary": "Update transport data",
+        "description": "Updates a new transport data record",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTransportDataRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transport data record updated",
+            "content": {
+			  "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransportData"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Transport"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "TransportController_deleteTransportData",
+        "summary": "Delete transport data",
+        "description": "Deletes a transport data record",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transport data record deleted"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transport data record not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Transport"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+	"/transport/summary": {
+      "get": {
+        "operationId": "TransportController_getSummaryTransportData",
+        "summary": "Retrieve transport data summary",
+        "description": "Retrieves the summary of emissions and energy consumption data",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The transport data summary",
+            "content": {
+			  "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransportDataSummary"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Transport"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+	},
+	"/heating-sources": {
+      "get": {
+        "operationId": "HouseholdController_getHeatingSources",
+        "summary": "Retrieve heating sources",
+        "description": "Retrieve the list of available heating sources",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The list of available heating sources",
+            "content": {
+			  "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IdName"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Household"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+	"/household": {
+      "get": {
+        "operationId": "TransportController_getHouseholdData",
+        "summary": "Retrieve list of household data",
+        "description": "Retrieves the list of household data for the user",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The list of household data",
+            "content": {
+			  "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HouseholdData"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Household"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+	  "put": {
+        "operationId": "TransportController_createHouseholdData",
+        "summary": "Create household data",
+        "description": "Creates a new household data record",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateHouseholdDataRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Household data created",
+            "content": {
+			  "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HouseholdData"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Household"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+	},
+	"/household/{id}": {
+	  "patch": {
+        "operationId": "TransportController_updateHouseholdData",
+        "summary": "Update household data",
+        "description": "Updates a new household data record",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateHouseholdDataRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Household data updated",
+            "content": {
+			  "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HouseholdData"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Household"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "TransportController_deleteHouseholdData",
+        "summary": "Delete household data",
+        "description": "Deletes a household data record",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Household data record deleted"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Household data record not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Household"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+	"/household/summary": {
+      "get": {
+        "operationId": "TransportController_getSummaryHouseholdData",
+        "summary": "Retrieve household data summary",
+        "description": "Retrieves the summary of emissions and energy consumption data",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The household data summary",
+            "content": {
+			  "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HouseholdDataSummary"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Household"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+	},
+  },
+  "info": {
+    "title": "AURORA",
+    "description": "The AURORA API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "Gender": {
+        "type": "string",
+        "enum": ["male", "female", "nonBinary", "other"]
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "yearOfBirth": {
+            "type": "number"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "email",
+          "password",
+          "yearOfBirth"
+        ]
+      },
+      "Tokens": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          },
+          "refreshToken": {
+            "type": "string"
+          }
+        },
+        "required": ["accessToken", "refreshToken"]
+      },
+      "ApiErrorCode": {
+        "type": "string",
+        "enum": ["accessTokenInvalid", "refreshTokenInvalid"]
+      },
+      "ApiError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ApiErrorCode"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": ["code"]
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "RefreshRequest": {
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string"
+          }
+        },
+        "required": ["refreshToken"]
+      },
+      "RefreshResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          }
+        },
+        "required": ["accessToken"]
+      },
+      "ChangeEmailRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": ["email"]
+      },
+      "ConfirmChangeEmailRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "confirmationCode": {
+            "type": "string"
+          }
+        },
+        "required": ["email", "confirmationCode"]
+      },
+      "ChangePasswordRequest": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": ["password"]
+      },
+      "ConfirmPasswordResetRequest": {
+        "type": "object",
+        "properties": {
+          "confirmationCode": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": ["confirmationCode", "password"]
+      },
+      "ConsumptionSummaryEntryCategory": {
+        "type": "string",
+        "enum": ["living", "mobility", "other"]
+      },
+      "ConsumptionSummaryEntry": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "$ref": "#/components/schemas/ConsumptionSummaryEntryCategory"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "required": ["category", "value"]
+      },
+      "ConsumptionSummary": {
+        "type": "object",
+        "properties": {
+          "totalCarbonEmissions": {
+            "type": "number"
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConsumptionSummaryEntry"
+            }
+          }
+        },
+        "required": ["totalCarbonEmissions", "entries"]
+      },
+      "ConsumptionType": {
+        "type": "string",
+        "enum": ["mobility", "energyBill"]
+      },
+      "ConsumptionCategory": {
+        "type": "string",
+        "enum": ["carRide", "trainRide", "electricityBill"]
+      },
+      "Consumption": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/ConsumptionType"
+          },
+          "category": {
+            "$ref": "#/components/schemas/ConsumptionCategory"
+          },
+          "value": {
+            "type": "number"
+          },
+          "carbonEmissions": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "date",
+          "type",
+          "category",
+          "value",
+          "carbonEmissions"
+        ]
+      },
+      "CreateConsumptionRequest": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/ConsumptionType"
+          },
+          "category": {
+            "$ref": "#/components/schemas/ConsumptionCategory"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "required": ["type", "category", "value"]
+      },
+      "UpdateConsumptionRequest": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/ConsumptionType"
+          },
+          "category": {
+            "$ref": "#/components/schemas/ConsumptionCategory"
+          },
+          "value": {
+            "type": "number"
+          }
+        }
+      },
+      "UploadNotificationsDeviceTokenRequest": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        },
+        "required": ["token"]
+      },
+      "NotificationType": {
+        "type": "string",
+        "enum": ["electricityBill", "heatingBill", "mobility"]
+      },
+      "NotificationFrequency": {
+        "type": "string",
+        "enum": ["weekly", "monthly", "annually"]
+      },
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/NotificationType"
+          },
+          "frequency": {
+            "$ref": "#/components/schemas/NotificationFrequency"
+          },
+          "frequencyValue": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "type"]
+      },
+      "UpdateNotificationRequest": {
+        "type": "object",
+        "properties": {
+          "frequency": {
+            "$ref": "#/components/schemas/NotificationFrequency"
+          },
+          "frequencyValue": {
+            "type": "string"
+          }
+        }
+      },
+      "Site": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "primaryHouse": {
+            "type": "boolean"
+          }
+        },
+        "required": ["id", "city", "country"]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "yearOfBirth": {
+            "type": "number"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "site": {
+            "$ref": "#/components/schemas/Site"
+          }
+        },
+        "required": ["id", "firstName", "lastName", "email", "yearOfBirth"]
+      },
+      "UpdateUserRequest": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "yearOfBirth": {
+            "type": "number"
+          },
+          "site": {
+            "$ref": "#/components/schemas/Site"
+          }
+        }
+      },
+	  "IdName": {
+		"type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+		}		  
+      },
+	  "Country": {
+		"type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "country": {
+            "type": "string"
+          }
+		}		  
+      },
+	  "TransportData": {
+		"type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "date": {
+            "type": "string"
+          },
+          "typeOfVehicle": {
+            "type": "number"
+          },
+          "levelOfOccupancy": {
+            "type": "number"
+          },
+          "distanceTravelled": {
+            "type": "number"
+          },
+          "energyConsumption": {
+            "type": "number"
+          },
+          "emissions": {
+            "type": "number"
+          }
+		}		  
+      },
+	  "CreateTransportDataRequest": {
+		"type": "object",
+        "properties": {
+          "userId": {
+            "type": "number"
+          },
+          "countryId": {
+            "type": "number"
+          },
+          "dateOfTravel": {
+            "type": "string"
+          },
+          "typeOfVehicleId": {
+            "type": "number"
+          },
+          "levelOfOccupancyId": {
+            "type": "number"
+          },
+          "distanceTravelled": {
+            "type": "number"
+          }
+		}		  
+      },
+	  "UpdateTransportDataRequest": {
+		"type": "object",
+        "properties": {
+          "countryId": {
+            "type": "number"
+          },
+          "dateOfTravel": {
+            "type": "string"
+          },
+          "typeOfVehicleId": {
+            "type": "number"
+          },
+          "levelOfOccupancyId": {
+            "type": "number"
+          },
+          "distanceTravelled": {
+            "type": "number"
+          }
+		}		  
+      },
+	  "TransportDataSummary": {
+		"type": "object",
+        "properties": {
+          "numberOfDays": {
+            "type": "number"
+          },
+          "totalEnergyConsumption": {
+            "type": "number"
+          },
+          "totalEmissions": {
+            "type": "number"
+          },
+          "energyConsumptionPerDay": {
+            "type": "number"
+          },
+          "emissionsPerDay": {
+            "type": "number"
+          }
+		}		  
+      },
+	  "HouseholdData": {
+		"type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "heatingSourceId": {
+            "type": "number"
+          },
+          "siteId": {
+            "type": "number"
+          },
+          "numberOfPersons": {
+            "type": "number"
+          },
+          "initialDate": {
+            "type": "string"
+          },
+          "finalDate": {
+            "type": "string"
+          },
+          "electricityConsumption": {
+            "type": "number"
+          },
+          "thermalConsumption": {
+            "type": "number"
+          },
+          "electricityConsumptionPerCapita": {
+            "type": "number"
+          },
+          "thermalConsumptionPerCapita": {
+            "type": "number"
+          },
+          "emissionsElectricityConsumption": {
+            "type": "number"
+          },
+          "emissionsThermalConsumption": {
+            "type": "number"
+          }
+		}		  
+      },
+	  "CreateHouseholdDataRequest": {
+		"type": "object",
+        "properties": {
+          "userId": {
+            "type": "number"
+          },
+		  "countryId": {
+            "type": "number"
+          },
+          "heatingSourceId": {
+            "type": "number"
+          },
+          "siteId": {
+            "type": "number"
+          },
+          "numberOfPersons": {
+            "type": "number"
+          },
+          "initialDate": {
+            "type": "string"
+          },
+          "finalDate": {
+            "type": "string"
+          },
+          "electricityConsumption": {
+            "type": "number"
+          },
+          "thermalConsumption": {
+            "type": "number"
+          }
+		}		  
+      },
+	  "UpdateHouseholdDataRequest": {
+		"type": "object",
+        "properties": {
+		  "countryId": {
+            "type": "number"
+          },
+          "heatingSourceId": {
+            "type": "number"
+          },
+          "siteId": {
+            "type": "number"
+          },
+          "numberOfPersons": {
+            "type": "number"
+          },
+          "initialDate": {
+            "type": "string"
+          },
+          "finalDate": {
+            "type": "string"
+          },
+          "electricityConsumption": {
+            "type": "number"
+          },
+          "thermalConsumption": {
+            "type": "number"
+          }
+		}		  
+      },
+	  "HouseSummary": {
+		"type": "object",
+        "properties": {
+          "numberOfDays": {
+            "type": "number"
+          },
+          "totalElectricityConsumptionPerCapita": {
+            "type": "number"
+          },
+          "totalEmissionsElectricityConsumption": {
+            "type": "number"
+          },
+          "totalThermalConsumptionPerCapita": {
+            "type": "number"
+          },
+          "totalEmissionsThermalConsumption": {
+            "type": "number"
+          },
+          "totalElectricityConsumptionPerCapitaPerDay": {
+            "type": "number"
+          },
+          "totalEmissionsElectricityConsumptionPerDay": {
+            "type": "number"
+          },
+          "totalThermalConsumptionPerCapitaPerDay": {
+            "type": "number"
+          },
+          "totalEmissionsThermalConsumptionPerDay": {
+            "type": "number"
+          }
+		}		  
+      },
+	  "HouseholdDataSummary": {
+		"type": "object",
+        "properties": {
+          "numberOfDays": {
+            "type": "number"
+          },
+          "totalElectricityConsumptionPerCapita": {
+            "type": "number"
+          },
+          "totalEmissionsElectricityConsumption": {
+            "type": "number"
+          },
+          "totalThermalConsumptionPerCapita": {
+            "type": "number"
+          },
+          "totalEmissionsThermalConsumption": {
+            "type": "number"
+          },
+          "totalElectricityConsumptionPerCapitaPerDay": {
+            "type": "number"
+          },
+          "totalEmissionsElectricityConsumptionPerDay": {
+            "type": "number"
+          },
+          "totalThermalConsumptionPerCapitaPerDay": {
+            "type": "number"
+          },
+          "totalEmissionsThermalConsumptionPerDay": {
+            "type": "number"
+          },
+		  "primaryHouse": {
+			"$ref": "#/components/schemas/HouseSummary"
+		  },
+		  "secondaryHouse": {
+			"$ref": "#/components/schemas/HouseSummary"
+		  }
+		}		  
+      }
+	}
+  }
+}
